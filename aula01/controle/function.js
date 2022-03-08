@@ -5,6 +5,28 @@ $(document).ready(function(){
         
         let dados = $('#form').serialize()
 
-        console.log(dados)
+        $('#retorno').empty()
+
+        $.ajax({
+            type: 'POST',
+            dataType: 'JSON',
+            assync: true,
+            data: dados,
+            url: '../modelo/retorno.php',
+            success: function(dados){
+
+                $('#retorno').append(`
+                    <div class="col-12 col-sm-8 col-md-6">
+                    <div class="alert-primary">
+                        <h1 class="text-center text-dark">
+                           ${dados.mensagem}
+                        </h1>
+                    </div>
+                    <img src="../../img/${dados.tipo}" class="img-fluid">
+                    </div>
+                `)
+
+            }
+        })
     })
 })
